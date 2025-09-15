@@ -3,68 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная - Мой Сайт</title>
+    <title>Главная - Мой первый проект</title>
+    <meta name="description" content="Добро пожаловать на мой первый сайт с семантической версткой">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
-    <!-- Шапка -->
-    <header class="header">
-        <div class="container">
-            <a class="header__logo" href="index.html">МойСайт</a>
-            <nav class="nav">
-                <ul class="nav__list">
-                    <li class="navitem"><a class="navlink" href="index.html">Главная</a></li>
-                    <li class="navitem"><a class="navlink" href="about.html">О нас</a></li>
-                    <li class="navitem"><a class="navlink" href="contacts.html">Контакты</a></li>
-                </ul>
-            </nav>
-        </div>
+    <header>
+        <a href="/">Мой первый проект</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+        <button id="openDialog" type="button">Написать нам</button>
     </header>
 
-    <!-- Основное содержимое -->
-    <main class="main">
-        <div class="container">
-            <section class="hero">
-                <h1>Добро пожаловать!</h1>
-                <p>Мы создаем качественные веб-решения</p>
-                <!-- Простая кнопка с onclick -->
-                <button class="button" onclick="openModal()">Написать нам</button>
-            </section>
-        </div>
+    <main>
+        <h1>Добро пожаловать на наш сайт!</h1>
+
+        <section id="services">
+            <h2>Наши услуги</h2>
+            <p>Мы предоставляем качественные услуги по веб-разработке и дизайну.</p>
+            <a href="#contacts">Связаться с нами</a>
+        </section>
+
+        <section id="portfolio">
+            <h2>Портфолио</h2>
+            <p>Здесь будут представлены наши лучшие работы и проекты.</p>
+        </section>
+
+        <section id="contacts">
+            <h2>Контактная информация</h2>
+            <p>Email: example@mail.com</p>
+            <p>Телефон: +7 (123) 456-78-90</p>
+            <a href="contacts.html">Подробнее</a>
+        </section>
     </main>
 
-    <!-- Подвал -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 МойСайт</p>
-        </div>
+    <footer>
+        <p>&copy; 2025 Мой первый проект. Все права защищены.</p>
+        <p>Телефон: +7 (123) 456-78-90</p>
     </footer>
 
     <!-- Модальное окно -->
-    <dialog id="myDialog">
-        <div style="padding: 20px;">
-            <h2>Обратная связь</h2>
-            <form id="contactForm">
-                <div>
-                    <label>Ваше имя *</label>
-                    <input type="text" id="userName" required>
-                </div>
-                <div>
-                    <label>Ваш Email *</label>
-                    <input type="email" id="userEmail" required>
-                </div>
-                <div>
-                    <label>Сообщение</label>
-                    <textarea id="userMessage" rows="4"></textarea>
-                </div>
-                <div style="margin-top: 20px;">
-                    <button type="button" onclick="closeModal()">Закрыть</button>
-                    <button type="submit">Отправить</button>
-                </div>
-            </form>
-        </div>
-    </dialog>
+    <dialog id="contactDialog" aria-labelledby="dialogTitle">
+        <h2 id="dialogTitle">Обратная связь</h2>
+        <form id="contactForm" method="dialog" novalidate>
+            <label for="name">Имя</label>
+            <input id="name" name="name" type="text" required minlength="2" autocomplete="given-name">
 
-    <!-- Подключаем скрипт БЕЗ defer -->
-    <script src="main.js"></script>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" required autocomplete="email">
+
+            <label for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                aria-describedby="phoneHelp" placeholder="+7 (_) _--"
+                required pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$">
+            <small id="phoneHelp">Формат: +7 (900) 000-00-00</small>
+
+            <label for="date">Дата</label>
+            <input id="date" name="date" type="date">
+
+            <label for="topic">Тема</label>
+            <select id="topic" name="topic" required>
+                <option value="">Выберите тему</option>
+                <option value="question">Вопрос</option>
+                <option value="order">Заказ</option>
+            </select>
+
+            <label for="message">Сообщение</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <div class="form-actions">
+                <button type="button" id="closeDialog">Закрыть</button>
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+    </dialog>
 </body>
+</html>
