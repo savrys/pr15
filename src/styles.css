@@ -1,73 +1,136 @@
-/* Стили для модального окна */
-.dialog {
-    border: none;
-    border-radius: var(--border-radius-xl);
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+body { 
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; 
+    line-height: 1.5;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header styles */
+header {
+    background: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
     padding: 0;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: var(--shadow-lg);
+    margin: 0;
+    display: flex;
+    gap: 1rem;
 }
 
-.dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
-}
-
-.dialog__content {
-    padding: var(--space-4);
-}
-
-.dialog__title {
-    font-size: 1.5rem;
-    margin-bottom: var(--space-4);
-    text-align: center;
-    color: var(--color-primary);
-}
-
-/* Анимация для открытия модального окна */
-.dialog[open] {
-    animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Убедимся, что кнопки видны */
-.button {
-    display: inline-block;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: center;
+nav a {
     text-decoration: none;
+    color: #007bff;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main content */
+main {
+    margin-bottom: 2rem;
+}
+
+section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+/* Footer */
+footer {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* Form styles */
+label { 
+    display: block; 
+    margin: 0.5rem 0 0.25rem; 
+    font-weight: bold;
+}
+
+input, select, textarea, button {
+    width: 100%;
+    max-width: 480px;
+    padding: .5rem .75rem;
+    border: 1px solid #c8c8c8;
+    border-radius: 8px;
+    background: #fff;
+    margin-bottom: 1rem;
+}
+
+button, [type="submit"] {
+    background: #0a84ff;
+    color: #fff;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
 }
 
-.button--primary {
-    background-color: #007bff;
-    color: white;
+button:hover {
+    filter: brightness(0.95);
 }
 
-.button--primary:hover {
-    background-color: #0056b3;
+:where(input, select, textarea, button):focus-visible {
+    outline: 2px solid #0a84ff; 
+    outline-offset: 2px;
 }
 
-.button--secondary {
-    background-color: #6c757d;
-    color: white;
+:disabled, [aria-disabled="true"] { 
+    opacity: .6; 
+    cursor: not-allowed; 
 }
 
-.button--secondary:hover {
-    background-color: #545b62;
+[aria-invalid="true"] { 
+    border-color: #b00020; 
+}
+
+small {
+    display: block;
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Dialog styles */
+dialog { 
+    padding: 1.25rem; 
+    border: none; 
+    border-radius: 12px; 
+    width: 90%;
+    max-width: 500px;
+}
+
+dialog::backdrop { 
+    background: rgba(0,0,0,.5); 
+}
+
+.form-actions { 
+    display: flex; 
+    gap: .5rem; 
+    margin-top: 1rem; 
+}
+
+/* Breadcrumbs */
+[aria-label="Хлебные крошки"] {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
 }
