@@ -1,77 +1,69 @@
-// Простые глобальные функции для работы с модальным окном
+// Очень простой код без сложного синтаксиса
+console.log('Скрипт начал работу');
+
+// Функция открытия модального окна
 function openModal() {
-    console.log('Открываем модальное окно...');
-    const dialog = document.getElementById('myDialog');
+    console.log('Пытаемся открыть модальное окно');
+    var dialog = document.getElementById('myDialog');
     if (dialog) {
         dialog.showModal();
-        console.log('Модальное окно открыто');
+        console.log('Модальное окно открыто успешно');
     } else {
-        console.error('Не найден элемент с id="myDialog"');
+        console.log('Элемент myDialog не найден');
     }
 }
 
+// Функция закрытия модального окна
 function closeModal() {
-    console.log('Закрываем модальное окно...');
-    const dialog = document.getElementById('myDialog');
+    console.log('Закрываем модальное окно');
+    var dialog = document.getElementById('myDialog');
     if (dialog) {
         dialog.close();
-        console.log('Модальное окно закрыто');
         
         // Очищаем форму
-        const form = document.getElementById('contactForm');
+        var form = document.getElementById('contactForm');
         if (form) {
             form.reset();
         }
     }
 }
 
-// Обработчик отправки формы
+// Функция обработки формы
 function handleFormSubmit(event) {
-    event.preventDefault();
-    console.log('Форма отправляется...');
+    console.log('Форма отправляется');
+    event.preventDefault(); // Отменяем стандартную отправку
     
-    // Простая валидация
-    const nameInput = document.getElementById('userName');
-    const emailInput = document.getElementById('userEmail');
-    const messageInput = document.getElementById('userMessage');
+    // Простая проверка
+    var nameInput = document.getElementById('userName');
+    var emailInput = document.getElementById('userEmail');
     
-    if (!nameInput.value.trim()) {
-        alert('Пожалуйста, введите ваше имя');
-        nameInput.focus();
+    if (!nameInput.value) {
+        alert('Введите ваше имя');
         return;
     }
     
-    if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
-        alert('Пожалуйста, введите корректный email');
-        emailInput.focus();
+    if (!emailInput.value || !emailInput.value.includes('@')) {
+        alert('Введите корректный email');
         return;
     }
     
-    if (!messageInput.value.trim()) {
-        alert('Пожалуйста, введите сообщение');
-        messageInput.focus();
-        return;
-    }
-    
-    alert('Сообщение отправлено! Спасибо за обратную связь.');
+    alert('Сообщение отправлено! Спасибо!');
     closeModal();
 }
 
 // Инициализация после загрузки страницы
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Страница загружена');
+    console.log('DOM загружен');
     
-    // Находим форму и добавляем обработчик
-    const form = document.getElementById('contactForm');
+    // Находим форму
+    var form = document.getElementById('contactForm');
     if (form) {
         form.addEventListener('submit', handleFormSubmit);
         console.log('Обработчик формы добавлен');
-    } else {
-        console.error('Форма не найдена');
     }
     
-    // Обработчик для закрытия по клику на фон
-    const dialog = document.getElementById('myDialog');
+    // Закрытие по клику на фон
+    var dialog = document.getElementById('myDialog');
     if (dialog) {
         dialog.addEventListener('click', function(event) {
             if (event.target === dialog) {
@@ -80,15 +72,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Обработчик для закрытия по Escape
+    // Закрытие по Escape
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             closeModal();
         }
     });
     
-    console.log('Все обработчики установлены');
+    console.log('Инициализация завершена');
 });
 
-// Простая проверка для отладки
-console.log('main.js загружен');
+console.log('Скрипт загружен');
