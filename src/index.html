@@ -7,7 +7,51 @@
     <meta name="description" content="Краткое описание главной страницы вашего сайта">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body><!-- Кнопка для открытия модального окна -->
+<button id="open-dialog" type="button">Написать нам</button>
+
+<!-- Само модальное окно с формой -->
+<dialog id="contact-dialog" aria-labelledby="dialog-title">
+  <h2 id="dialog-title">Обратная связь</h2>
+
+  <form id="contact-form" method="dialog" novalidate>
+    <!-- Поле "Имя" -->
+    <label for="name">Имя *</label>
+    <input id="name" name="name" type="text" required minlength="2" autocomplete="name">
+
+    <!-- Поле "Email" -->
+    <label for="email">E-mail *</label>
+    <input id="email" name="email" type="email" required autocomplete="email">
+
+    <!-- Поле "Телефон" -->
+    <label for="phone">Телефон *</label>
+    <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="phone-help" placeholder="+7 (900) 123-45-67" required pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$">
+    <small id="phone-help">Формат: +7 (900) 123-45-67</small>
+
+    <!-- Поле "Дата" -->
+    <label for="date">Дата</label>
+    <input id="date" name="date" type="date">
+
+    <!-- Выпадающий список "Тема" -->
+    <label for="topic">Тема *</label>
+    <select id="topic" name="topic" required>
+      <option value="">-- Выберите тему --</option>
+      <option value="question">Вопрос</option>
+      <option value="order">Заказ</option>
+      <option value="other">Другое</option>
+    </select>
+
+    <!-- Большое поле "Сообщение" -->
+    <label for="message">Сообщение *</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <!-- Кнопки действия -->
+    <div class="form-actions">
+      <button type="button" id="close-dialog">Закрыть</button>
+      <button type="submit">Отправить</button>
+    </div>
+  </form>
+</dialog>
     <!-- Шапка сайта -->
     <header>
         <a href="index.html">Логотип или название сайта</a>
