@@ -10,7 +10,7 @@
 <body>
     <!-- Шапка сайта -->
     <header class="header">
-        <div class="container">
+        <div class="container header__container">
             <a class="header__logo" href="index.html">МойСайт</a>
             
             <nav class="nav">
@@ -30,7 +30,8 @@
             <section class="hero">
                 <h1 class="hero__title">Добро пожаловать на наш сайт!</h1>
                 <p class="hero__text">Мы создаем качественные веб-решения для вашего бизнеса</p>
-                <button class="button button--primary" id="openDialog">Написать нам</button>
+                <!-- Убрал ID из кнопки и добавил прямо здесь обработчик -->
+                <button class="button button--primary" onclick="openModal()">Написать нам</button>
             </section>
 
             <!-- Секция услуг -->
@@ -80,7 +81,6 @@
             <p class="footer__text">&copy; 2024 МойСайт. Все права защищены.</p>
         </div>
     </footer>
-
     <!-- Модальное окно -->
     <dialog class="dialog" id="myDialog">
         <div class="dialog__content">
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="form__actions">
-                    <button type="button" class="button button--secondary" id="closeDialog">Закрыть</button>
+                    <button type="button" class="button button--secondary" onclick="closeModal()">Закрыть</button>
                     <button type="submit" class="button button--primary">Отправить</button>
                 </div>
             </form>
@@ -111,6 +111,6 @@
     </dialog>
 
     <!-- Подключаем скрипт -->
-    <script src="main.js" defer></script>
+    <script src="main.js"></script>
 </body>
 </html>
