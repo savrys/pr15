@@ -1,70 +1,95 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма обратной связи</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Кнопка открытия модалки -->
-    <button id="openDialog" type="button" class="open-btn">Написать нам</button>
+// Модальное окно
+const dlg = document.getElementById('contactDialog');
+const openBtn = document.getElementById('openDialog');
+const closeBtn = document.getElementById('closeDialog');
+const form = document.getElementById('contactForm');
+let lastActive = null;
 
-    <!-- Модалка с формой -->
-    <dialog id="contactDialog" aria-labelledby="dialogTitle">
-        <h2 id="dialogTitle">Обратная связь</h2>
+openBtn?.addEventListener('click', () => {
+    lastActive = document.activeElement;
+    dlg.showModal();
+    dlg.querySelector('input, select, textarea, button')?.focus();
+});
 
-        <form id="contactForm" method="dialog" novalidate>
-            <div class="form-group">
-                <label for="name">Имя *</label>
-                <input id="name" name="name" type="text" required minlength="2" 
-                       autocomplete="given-name" aria-required="true">
-            </div>
+closeBtn?.addEventListener('click', () => dlg.close('cancel'));
 
-            <div class="form-group">
-                <label for="email">E-mail *</label>
-                <input id="email" name="email" type="email" required 
-                       autocomplete="email" aria-required="true">
-            </div>
+// Валидация формы
+form?.addEventListener('submit', (e) => {
+    // Сброс кастомных сообщений
+    [...form.elements].forEach(el => el.setCustomValidity?.(''));
+    
+    // Проверка встроенных ограничений
+    if (!form.checkValidity()) {
+        e.preventDefault();
+        
+        // Кастомные сообщения об ошибках
+        const email = form.elements.email;
+        if (email?.validity.typeMismatch) {
+            email.setCustomValidity('Введите корректный e-mail, например name@example.com');
+        }
+        
+        const phone = form.elements.phone;
+        if (phone?.validity.patternMismatch) {
+            phone.setCustomValidity('Введите телефон в формате: +7 (900) 000-00-00');
+        }
+        
+        form.reportValidity();
+        
+        // Подсветка проблемных полей
+        [...form.elements].forEach(el => {
+            if (el.willValidate) {
+                el.toggleAttribute('aria-invalid', !el.checkValidity());
+            }
+        });
+        return;
+    }
+    
+    // Успешная отправка
+    e.preventDefault();
+    alert('Сообщение отправлено успешно!');
+    dlg.close('success');
+    form.reset();
+});
 
-            <div class="form-group">
-                <label for="phone">Телефон *</label>
-                <input id="phone" name="phone" type="tel" inputmode="tel" 
-                       autocomplete="tel" aria-describedby="phoneHelp" 
-                       placeholder="+7 (_) _--" required 
-                       pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
-                       aria-required="true">
-                <small id="phoneHelp">Формат: +7 (900) 000-00-00</small>
-            </div>
+// Закрытие модалки при клике на бэкдроп
+dlg?.addEventListener('click', (e) => {
+    if (e.target === dlg) {
+        dlg.close('cancel');
+    }
+});
 
-            <div class="form-group">
-                <label for="date">Дата</label>
-                <input id="date" name="date" type="date">
-            </div>
+// Возврат фокуса после закрытия модалки
+dlg?.addEventListener('close', () => {
+    lastActive?.focus();
+});
 
-            <div class="form-group">
-                <label for="topic">Тема *</label>
-                <select id="topic" name="topic" required aria-required="true">
-                    <option value="">Выберите тему</option>
-                    <option value="question">Вопрос</option>
-                    <option value="order">Заказ</option>
-                    <option value="other">Другое</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Сообщение *</label>
-                <textarea id="message" name="message" rows="4" required 
-                          aria-required="true"></textarea>
-            </div>
-
-            <div class="form-actions">
-                <button type="button" id="closeDialog">Закрыть</button>
-                <button type="submit">Отправить</button>
-            </div>
-        </form>
-    </dialog>
-
-    <script src="main.js"></script>
-</body>
-</html>
+// Маска для телефона (дополнительно)
+const phoneInput = document.getElementById('phone');
+phoneInput?.addEventListener('input', (e) => {
+    const input = e.target;
+    let value = input.value.replace(/\D/g, '');
+    
+    if (value.startsWith('8')) {
+        value = '7' + value.slice(1);
+    }
+    
+    if (value.startsWith('7')) {
+        value = value.slice(1);
+    }
+    
+    let formattedValue = '+7';
+    if (value.length > 0) {
+        formattedValue += ' (' + value.slice(0, 3);
+    }
+    if (value.length >= 4) {
+        formattedValue += ') ' + value.slice(3, 6);
+    }
+    if (value.length >= 7) {
+        formattedValue += '-' + value.slice(6, 8);
+    }
+    if (value.length >= 9) {
+        formattedValue += '-' + value.slice(8, 10);
+    }
+    
+    input.value = formattedValue;
+});
