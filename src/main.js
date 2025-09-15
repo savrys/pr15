@@ -1,85 +1,70 @@
-// Очень простой код без сложного синтаксиса
-console.log('Скрипт начал работу');
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма обратной связи</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Кнопка открытия модалки -->
+    <button id="openDialog" type="button" class="open-btn">Написать нам</button>
 
-// Функция открытия модального окна
-function openModal() {
-    console.log('Пытаемся открыть модальное окно');
-    var dialog = document.getElementById('myDialog');
-    if (dialog) {
-        dialog.showModal();
-        console.log('Модальное окно открыто успешно');
-    } else {
-        console.log('Элемент myDialog не найден');
-    }
-}
+    <!-- Модалка с формой -->
+    <dialog id="contactDialog" aria-labelledby="dialogTitle">
+        <h2 id="dialogTitle">Обратная связь</h2>
 
-// Функция закрытия модального окна
-function closeModal() {
-    console.log('Закрываем модальное окно');
-    var dialog = document.getElementById('myDialog');
-    if (dialog) {
-        dialog.close();
-        
-        // Очищаем форму
-        var form = document.getElementById('contactForm');
-        if (form) {
-            form.reset();
-        }
-    }
-}
+        <form id="contactForm" method="dialog" novalidate>
+            <div class="form-group">
+                <label for="name">Имя *</label>
+                <input id="name" name="name" type="text" required minlength="2" 
+                       autocomplete="given-name" aria-required="true">
+            </div>
 
-// Функция обработки формы
-function handleFormSubmit(event) {
-    console.log('Форма отправляется');
-    event.preventDefault(); // Отменяем стандартную отправку
-    
-    // Простая проверка
-    var nameInput = document.getElementById('userName');
-    var emailInput = document.getElementById('userEmail');
-    
-    if (!nameInput.value) {
-        alert('Введите ваше имя');
-        return;
-    }
-    
-    if (!emailInput.value || !emailInput.value.includes('@')) {
-        alert('Введите корректный email');
-        return;
-    }
-    
-    alert('Сообщение отправлено! Спасибо!');
-    closeModal();
-}
+            <div class="form-group">
+                <label for="email">E-mail *</label>
+                <input id="email" name="email" type="email" required 
+                       autocomplete="email" aria-required="true">
+            </div>
 
-// Инициализация после загрузки страницы
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM загружен');
-    
-    // Находим форму
-    var form = document.getElementById('contactForm');
-    if (form) {
-        form.addEventListener('submit', handleFormSubmit);
-        console.log('Обработчик формы добавлен');
-    }
-    
-    // Закрытие по клику на фон
-    var dialog = document.getElementById('myDialog');
-    if (dialog) {
-        dialog.addEventListener('click', function(event) {
-            if (event.target === dialog) {
-                closeModal();
-            }
-        });
-    }
-    
-    // Закрытие по Escape
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeModal();
-        }
-    });
-    
-    console.log('Инициализация завершена');
-});
+            <div class="form-group">
+                <label for="phone">Телефон *</label>
+                <input id="phone" name="phone" type="tel" inputmode="tel" 
+                       autocomplete="tel" aria-describedby="phoneHelp" 
+                       placeholder="+7 (_) _--" required 
+                       pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+                       aria-required="true">
+                <small id="phoneHelp">Формат: +7 (900) 000-00-00</small>
+            </div>
 
-console.log('Скрипт загружен');
+            <div class="form-group">
+                <label for="date">Дата</label>
+                <input id="date" name="date" type="date">
+            </div>
+
+            <div class="form-group">
+                <label for="topic">Тема *</label>
+                <select id="topic" name="topic" required aria-required="true">
+                    <option value="">Выберите тему</option>
+                    <option value="question">Вопрос</option>
+                    <option value="order">Заказ</option>
+                    <option value="other">Другое</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Сообщение *</label>
+                <textarea id="message" name="message" rows="4" required 
+                          aria-required="true"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="closeDialog">Закрыть</button>
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="main.js"></script>
+</body>
+</html>
