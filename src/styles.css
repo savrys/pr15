@@ -1,104 +1,385 @@
-/* БАЗОВЫЕ СТИЛИ ДЛЯ ВСЕЙ СТРАНИЦЫ */
+/* ===== CSS ПЕРЕМЕННЫЕ (ДИЗАЙН-ТОКЕНЫ) ===== */
+:root {
+  /* Цветовая палитра */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-text: #212529;
+  --color-text-muted: #6c757d;
+  --color-primary: #0d6efd;
+  --color-primary-hover: #0b5ed7;
+  --color-secondary: #6c757d;
+  --color-success: #198754;
+  --color-danger: #dc3545;
+  --color-border: #dee2e6;
+
+  /* Размеры отступов */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 3rem;
+
+  /* Типографика */
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-sm: 0.875rem;
+
+  /* Декоративные элементы */
+  --border-radius: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 1rem;
+  --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+  /* Транзишены */
+  --transition: all 0.15s ease-in-out;
+}
+
+/* ===== БАЗОВЫЕ СТИЛИ ===== */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
-/* СТИЛИ ДЛЯ КНОПКИ ОТКРЫТИЯ */
-#openDialog {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 20px 0;
+/* ===== УТИЛИТЫ ===== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
 }
 
-#openDialog:hover {
-    background-color: #45a049;
+/* Скрытие элемента */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-/* СТИЛИ ДЛЯ ДИАЛОГА (МОДАЛЬНОГО ОКНА) */
-#myDialog {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    width: 90%;
-    max-width: 500px;
+/* ===== КОМПОНЕНТЫ ===== */
+
+/* Кнопки */
+.button {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-/* Стиль для фона позади модального окна */
-#myDialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
+.button--primary {
+  color: white;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
-/* СТИЛИ ДЛЯ ФОРМЫ ВНУТРИ ДИАЛОГА */
-#contactForm {
-    display: flex;
+.button--primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.button--secondary {
+  color: var(--color-text);
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border);
+}
+
+.button--secondary:hover {
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+/* Шапка */
+.header {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-3) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header__logo {
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+/* Навигация */
+.nav__list {
+  list-style: none;
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.nav__link:hover,
+.nav__link--active {
+  color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+/* Основное содержимое */
+.main {
+  min-height: 80vh;
+  padding: var(--space-4) 0;
+}
+
+/* Герой секция */
+.hero {
+  text-align: center;
+  padding: var(--space-5) 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: var(--border-radius-xl);
+  margin-bottom: var(--space-5);
+}
+
+.hero__title {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-3);
+}
+
+.hero__text {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-4);
+}
+
+/* Секции */
+.section {
+  padding: var(--space-5) 0;
+}
+
+.section__title {
+  font-size: 2rem;
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+/* Сервисы */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.service-card {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-card__title {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-3);
+  color: var(--color-primary);
+}
+
+/* Портфолио */
+.portfolio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.portfolio__image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-lg);
+  transition: var(--transition);
+}
+
+.portfolio__image:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Контакты */
+.contacts {
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+.contacts__text {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+/* Подвал */
+.footer {
+  background-color: var(--color-bg-secondary);
+  padding: var(--space-4) 0;
+  text-align: center;
+  margin-top: var(--space-5);
+}
+
+.footer__text {
+  color: var(--color-text-muted);
+}
+
+/* Модальное окно */
+.dialog {
+  border: none;
+  border-radius: var(--border-radius-xl);
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+}
+
+.dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.dialog__content {
+  padding: var(--space-4);
+}
+
+.dialog__title {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-4);
+  text-align: center;
+  color: var(--color-primary);
+}
+
+/* Форма */
+.form__group {
+  margin-bottom: var(--space-4);
+}
+
+.form__label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.form__input,
+.form__textarea {
+  width: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  transition: var(--transition);
+}
+
+.form__input:focus,
+.form__textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+.form__textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form__actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  margin-top: var(--space-4);
+}
+
+/* Состояния фокуса для доступности */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  :root {
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 2rem;
+  }
+
+  .header .container {
     flex-direction: column;
-    gap: 15px;
-}
+    gap: var(--space-3);
+  }
 
-#contactForm label {
-    font-weight: bold;
-    margin-bottom: -10px;
-}
+  .nav__list {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
 
-#contactForm input,
-#contactForm textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .services,
+  .portfolio {
+    grid-template-columns: 1fr;
+  }
+
+  .form__actions {
+    flex-direction: column;
+  }
+
+  .button {
     width: 100%;
+  }
 }
 
-#contactForm input:focus,
-#contactForm textarea:focus {
-    outline: 2px solid #4CAF50;
-}
+@media (max-width: 480px) {
+  .hero__title {
+    font-size: 1.75rem;
+  }
 
-/* СТИЛИ ДЛЯ ГРУППЫ КНОПОК "ОТПРАВИТЬ" и "ЗАКРЫТЬ" */
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 15px;
-}
+  .section__title {
+    font-size: 1.5rem;
+  }
 
-.form-actions button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* Кнопка "Закрыть" */
-#closeDialog {
-    background-color: #f44336;
-    color: white;
-}
-
-#closeDialog:hover {
-    background-color: #d32f2f;
-}
-
-/* Кнопка "Отправить" */
-.form-actions button[type="submit"] {
-    background-color: #2196F3;
-    color: white;
-}
-
-.form-actions button[type="submit"]:hover {
-    background-color: #0b7dda;
+  .dialog {
+    width: 95%;
+    margin: var(--space-3);
+  }
 }
