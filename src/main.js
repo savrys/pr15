@@ -1,5 +1,6 @@
 // ЖДЕМ, ПОКА ВЕСЬ HTML-ДОКУМЕНТ ПОЛНОСТЬЮ ЗАГРУЗИТСЯ
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("Скрипт загружен!");
 
     // НАХОДИМ НУЖНЫЕ ЭЛЕМЕНТЫ НА СТРАНИЦЕ ПО ИХ ID
     const openButton = document.getElementById('openDialog');
@@ -13,17 +14,41 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    console.log("Все элементы найдены:", openButton, closeButton, dialog, form);
+
+    let lastActiveElement = null;
+
     // ФУНКЦИЯ ДЛЯ ОТКРЫТИЯ МОДАЛЬНОГО ОКНА
     function handleOpenDialog() {
         console.log('Кнопка "Написать нам" нажата!');
-        dialog.showModal(); // Команда браузеру: "Открой диалог!"
+        lastActiveElement = document.activeElement;
+        
+        // Проверяем поддержку showModal
+        if (typeof dialog.showModal === 'function') {
+            dialog.showModal();
+        } else {
+            // Fallback для старых браузеров
+            dialog.setAttribute('open', 'true');
+            console.warn("Ваш браузер не поддерживает showModal(), использован fallback.");
+        }
     }
 
     // ФУНКЦИЯ ДЛЯ ЗАКРЫТИЯ МОДАЛЬНОГО ОКНА
     function handleCloseDialog() {
         console.log('Кнопка "Закрыть" нажата!');
-        dialog.close(); // Команда браузеру: "Закрой диалог!"
+        
+        if (typeof dialog.close === 'function') {
+            dialog.close();
+        } else {
+            dialog.removeAttribute('open');
+        }
+        
         form.reset(); // Очищаем форму при закрытии
+        
+        // Безопасный возврат фокуса (исправленная строка!)
+        if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+            lastActiveElement.focus();
+        }
     }
 
     // ФУНКЦИЯ, КОТОРАЯ СРАБОТАЕТ ПРИ ОТПРАВКЕ ФОРМЫ
@@ -36,7 +61,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (form.checkValidity()) {
             // Если всё OK, показываем сообщение и закрываем окно
             alert('Сообщение отправлено! Спасибо за вашу обратную связь.');
-            dialog.close();
+            
+            if (typeof dialog.close === 'function') {
+                dialog.close();
+            } else {
+                dialog.removeAttribute('open');
+            }
+            
             form.reset(); // Очищаем форму после отправки
         } else {
             // Если есть ошибки, показываем стандартные сообщения браузера
@@ -45,13 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ВЕШАЕМ ОБРАБОТЧИКИ СОБЫТИЙ НА КНОПКИ И ФОРМУ
-    // "Когда на эту кнопку кликнут, выполни функцию handleOpenDialog"
     openButton.addEventListener('click', handleOpenDialog);
-
-    // "Когда на эту кнопку кликнут, выполни функцию handleCloseDialog"
     closeButton.addEventListener('click', handleCloseDialog);
-
-    // "Когда форму попытаются отправить, выполни функцию handleFormSubmit"
     form.addEventListener('submit', handleFormSubmit);
 
     // Сообщение в консоль, что всё готово к работе
