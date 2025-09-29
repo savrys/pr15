@@ -3,48 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контакты - Мой первый проект</title>
-    <meta name="description" content="Свяжитесь с нами для сотрудничества">
+    <title>Контакты - Название вашего сайта</title>
+    <meta name="description" content="Контактная информация и как с нами связаться">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Контакты - Название вашего сайта">
+    <meta property="og:description" content="Контактная информация и как с нами связаться">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <a href="/">Мой первый проект</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О нас</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
-            </ul>
-        </nav>
+    <header class="site-header">
+        <div class="site-header__container">
+            <a class="site-header__brand" href="/">Логотип</a>
+            <nav class="site-nav" aria-label="Основная навигация">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item">
+                        <a class="site-nav__link" href="index.html">Главная</a>
+                    </li>
+                    <li class="site-nav__item">
+                        <a class="site-nav__link" href="about.html">О нас</a>
+                    </li>
+                    <li class="site-nav__item">
+                        <a class="site-navlink site-navlink--active" href="contacts.html">Контакты</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <nav aria-label="Хлебные крошки">
-            <a href="index.html">Главная</a> -
-            <span>Контакты</span>
+    <main class="main-content">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <ul class="breadcrumbs__list">
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="index.html">Главная</a>
+                </li>
+                <li class="breadcrumbs__item">
+                    <span class="breadcrumbs__current">Контакты</span>
+                </li>
+            </ul>
         </nav>
 
-        <h1>Наши контакты</h1>
-        
-        <section>
-            <h2>Контактная информация</h2>
-            <p>Email: example@mail.com</p>
+        <h1>Контакты</h1>
+        <section class="section">
+            <h2 class="section__title">Наши контакты</h2>
             <p>Телефон: +7 (123) 456-78-90</p>
-            <p>Адрес: г. Москва, ул. Примерная, д. 123</p>
-        </section>
-        
-        <section>
-            <h2>Режим работы</h2>
-            <p>Пн-Пт: 9:00-18:00</p>
-            <p>Сб-Вс: выходной</p>
+            <p>Email: info@example.com</p>
+            <p>Адрес: г. Москва, ул. Примерная, д. 1</p>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Мой первый проект. Все права защищены.</p>
-        <p>Телефон: +7 (123) 456-78-90</p>
+    <footer class="site-footer">
+        <div class="site-footer__container">
+            <p>&copy; 2024 Название вашего сайта. Все права защищены.</p>
+            <p>Телефон: +7 (123) 456-78-90</p>
+        </div>
     </footer>
 </body>
 </html>
