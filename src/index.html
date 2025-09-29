@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная - Название вашего сайта</title>
-    <meta name="description" content="Краткое описание главной страницы вашего сайта">
+    <title>Главная - WebCraft Studio</title>
+    <meta name="description" content="WebCraft Studio - создание современных веб-сайтов и приложений">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Главная - Название вашего сайта">
-    <meta property="og:description" content="Краткое описание главной страницы вашего сайта">
+    <meta property="og:title" content="WebCraft Studio - профессиональная веб-разработка">
+    <meta property="og:description" content="WebCraft Studio - создание современных веб-сайтов и приложений">
     <link rel="icon" href="/pr15/assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="site-header">
         <div class="site-header__container">
-            <a class="site-header__brand" href="/">Логотип</a>
+            <a class="site-header__brand" href="/">WebCraft</a>
             <nav class="site-nav" aria-label="Основная навигация">
                 <ul class="site-nav__list">
                     <li class="site-nav__item">
@@ -32,37 +32,89 @@
     </header>
 
     <main class="main-content">
-        <h1>Добро пожаловать на наш сайт!</h1>
+        <h1>Добро пожаловать в WebCraft Studio!</h1>
+        
+        <!-- Герой-секция с фоновым изображением -->
+        <section class="hero-section">
+            <div class="hero-section__content">
+                <h2>Создаём цифровые решения для вашего бизнеса</h2>
+                <p>Профессиональная разработка сайтов и приложений</p>
+                <a href="#contacts" class="hero-section__button">Начать проект</a>
+            </div>
+        </section>
         
         <section class="section" id="services">
             <h2 class="section__title">Наши услуги</h2>
-            <p>Описание предоставляемых услуг...</p>
+            <p>Мы предлагаем полный цикл разработки: от дизайна до запуска и поддержки.</p>
             <a href="#contacts">Связаться с нами</a>
         </section>
 
         <section class="section" id="portfolio">
             <h2 class="section__title">Портфолио</h2>
-            <p>Примеры наших работ...</p>
+            
+            <!-- Responsive изображение с srcset -->
+            <div class="portfolio__image">
+                <img 
+                    src="assets/portfolio-640.jpg" 
+                    srcset="assets/portfolio-640.jpg 640w, 
+                            assets/portfolio-960.jpg 960w,
+                            assets/portfolio-1280.jpg 1280w"
+                    sizes="(max-width: 768px) 92vw, 
+                           (max-width: 1200px) 640px, 
+                           960px"
+                    alt="Пример нашего проекта: современный веб-дизайн"
+                    width="640" 
+                    height="360"
+                    loading="lazy">
+            </div>
+            
+            <p>Инновационные решения для бизнеса любого масштаба.</p>
+        </section>
+
+        <section class="section" id="video">
+            <h2 class="section__title">О нас в видео</h2>
+            
+            <!-- Iframe с Rutube -->
+            <div class="media">
+                <iframe 
+                    src="https://rutube.ru/embed/1066f4a2fc227fd39851f7c43b5c8eab/" 
+                    title="Демонстрация нашего проекта"
+                    allow="autoplay; encrypted-media; picture-in-picture; web-share" 
+                    allowfullscreen 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <!-- Альтернативное локальное видео (закомментировано) -->
+            <!--<div class="media">
+                <video controls width="640" height="360" poster="assets/video-poster.jpg" preload="metadata">
+                    <source src="assets/presentation.mp4" type="video/mp4">
+                    <source src="assets/presentation.webm" type="video/webm">
+                    <track kind="captions" srclang="ru" src="assets/captions.vtt" label="Русские субтитры">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+            -->
         </section>
 
         <section class="section" id="contacts">
             <h2 class="section__title">Контактная информация</h2>
-            <p>Наши контакты...</p>
+            <p>Готовы начать проект? Свяжитесь с нами удобным способом.</p>
             <a href="contacts.html">Подробнее</a>
         </section>
 
-        <button id="openDialog" type="button">Написать нам</button>
+        <button id="openDialog" type="button" class="contact-button">Написать нам</button>
     </main>
 
     <footer class="site-footer">
         <div class="site-footer__container">
-            <p>&copy; 2024 Название вашего сайта. Все права защищены.</p>
+            <p>&copy; 2024 WebCraft Studio. Все права защищены.</p>
             <p>Телефон: +7 (123) 456-78-90</p>
         </div>
     </footer>
 
     <dialog id="contactDialog" class="dialog" aria-labelledby="dialogTitle">
-        <h2 id="dialogTitle">Обратная связь</h2>
+        <h2 id="dialogTitle">Обратная связь - WebCraft Studio</h2>
         <form id="contactForm" method="dialog" novalidate class="form">
             <div class="form__group">
                 <label for="name" class="form__label">Имя</label>
@@ -85,7 +137,7 @@
             <div class="form__group">
                 <label for="date" class="form__label">Дата</label>
                 <input id="date" name="date" type="date" class="form__input">
-                </div>
+            </div>
             
             <div class="form__group">
                 <label for="topic" class="form__label">Тема</label>
@@ -93,6 +145,7 @@
                     <option value="">Выберите тему</option>
                     <option>Вопрос</option>
                     <option>Заказ</option>
+                    <option>Сотрудничество</option>
                 </select>
             </div>
             
