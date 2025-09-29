@@ -3,45 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О нас - Мой первый проект</title>
+    <title>О нас - Название вашего сайта</title>
     <meta name="description" content="Узнайте больше о нашей компании и истории">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="О нас - Название вашего сайта">
+    <meta property="og:description" content="Узнайте больше о нашей компании и истории">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <a href="/">Мой первый проект</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О нас</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
-            </ul>
-        </nav>
+    <header class="site-header">
+        <div class="site-header__container">
+            <a class="site-header__brand" href="/">Логотип</a>
+            <nav class="site-nav" aria-label="Основная навигация">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item">
+                        <a class="site-nav__link" href="index.html">Главная</a>
+                    </li>
+                    <li class="site-nav__item">
+                        <a class="site-navlink site-navlink--active" href="about.html">О нас</a>
+                    </li>
+                    <li class="site-nav__item">
+                        <a class="site-nav__link" href="contacts.html">Контакты</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <nav aria-label="Хлебные крошки">
-            <a href="index.html">Главная</a> -
-            <span>О нас</span>
+    <main class="main-content">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <ul class="breadcrumbs__list">
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="index.html">Главная</a>
+                </li>
+                <li class="breadcrumbs__item">
+                    <span class="breadcrumbs__current">О нас</span>
+                </li>
+            </ul>
         </nav>
 
         <h1>О нашей компании</h1>
-        
-        <section>
-            <h2>Наша история</h2>
-            <p>Мы начали свою деятельность в 2025 году с целью создания качественных веб-проектов.</p>
+        <section class="section">
+            <h2 class="section__title">Наша история</h2>
+            <p>Текст о том, как все начиналось...</p>
         </section>
-        
-        <section>
-            <h2>Наша команда</h2>
-            <p>Наша команда состоит из опытных разработчиков и дизайнеров, готовых реализовать любые идеи.</p>
+        <section class="section">
+            <h2 class="section__title">Наша команда</h2>
+            <p>Текст о команде...</p>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Мой первый проект. Все права защищены.</p>
-        <p>Телефон: +7 (123) 456-78-90</p>
+    <footer class="site-footer">
+        <div class="site-footer__container">
+            <p>&copy; 2024 Название вашего сайта. Все права защищены.</p>
+            <p>Телефон: +7 (123) 456-78-90</p>
+        </div>
     </footer>
 </body>
 </html>
